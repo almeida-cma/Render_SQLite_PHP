@@ -1,8 +1,10 @@
 # Usar uma imagem base do PHP com Apache
 FROM php:8.2-apache
 
-# Instalar a extensão SQLite3 para PHP
-RUN docker-php-ext-install pdo pdo_sqlite
+# Atualizar pacotes do sistema e instalar dependências necessárias para SQLite e PDO
+RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite
 
 # Ativar o mod_rewrite do Apache
 RUN a2enmod rewrite
